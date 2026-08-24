@@ -2,6 +2,7 @@
 #include "framework/crypto_params.h"
 #include "framework/crypto_algorithm_ids.h"
 #include "providers/provider.h"
+#include "algorithms/algos.h"
 
 
 //extern const crypto_provider_t provider_mbedtls;
@@ -14,14 +15,7 @@ int main(void)
     const uint8_t msg[] = "abc";
     uint8_t digest[32];
 
-    crypto_params_t params = {
-        .in1     = msg,
-        .in1_len = sizeof(msg) - 1,
-        .out     = digest,
-        .out_len = sizeof(digest)
-    };
-
-    int rc = provider->funcs[CRYPTO_ALG_SHA2](&params);
+    crypto_sha256(provider, msg, sizeof(msg) - 1, digest);
 
     return 0;
 }
